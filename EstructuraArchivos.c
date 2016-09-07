@@ -7,50 +7,75 @@ struct product {
 	int stock;
 	int price;
  };
-void getData(FILE *in_file, struct product *ptrProduct);
-void printData(struct product *producto);
+
+
+int countlines();
+
+struct product *getData(FILE *in_file, struct product *ptrProduct, int numLines);
+void printData(struct product *producto, int numLines);
 
 int main(){
+	int numLines;
+	struct product *producto =NULL;
 	FILE *in_file;
-	struct product *producto;	
-
+	
 	in_file = fopen(FILE_NAME, "r");
-
-	producto = malloc(sizeof(struct product) * 2);
-	getData(in_file, producto);
-
-
-	printData(producto);
-
-	fclose(in_file);
-	return(0);
-}
-
-void getData(FILE *in_file, struct product *ptrProduct){
-	int i;
-
+	
 	if(in_file==NULL){
 		printf("No se puede abrir el archivo %s\n", FILE_NAME);
 		exit(8);
 	}
+	
+	numLines = countlines();
+	numLines = numLines/3;
 
-	for(i =0 ; i<2; i++){
+	producto = getData(in_file, producto, numLines);
+
+
+	printData(producto, numLines);
+
+	fclose(in_file);
+	free(producto);
+	return(0);
+}
+
+int countlines(){
+	int ch=0;
+	int lines=1;
+	FILE *in_file;
+	in_file = fopen(FILE_NAME, "r");
+	
+	while ((ch = fgetc(in_file)) != EOF){
+    	if (ch == '\n'){
+    		lines++;
+    	}
+    	
+    }
+    fclose(in_file);
+	return lines;
+}
+
+struct product *getData(FILE *in_file, struct product *ptrProduct, int numLines){
+	int i;
+	ptrProduct = malloc(sizeof(struct product) * numLines);
+	
+	for(i =0 ; i<numLines; i++){
 		fscanf(in_file, "%s", ptrProduct->name);
 		fscanf(in_file, "%d", &ptrProduct->stock);
 		fscanf(in_file, "%d", &ptrProduct->price);
 
 		ptrProduct++;
 	}
+	return (ptrProduct-numLines);
 
 }
 
-void printData(struct product *producto){
+void printData(struct product *producto, int numLines){
 	printf("%-20s|%-20s|%-20s \n", "Nombre", "Cantidad", "Precio");
 	int i;
-	for(i =0 ; i<2; i++){
-		printf("%-20s |", producto->name);
-		printf("%-20d |", producto->stock);
-		printf("%-20d\n", producto->price);
+	for(i =0 ; i<numLines; i++){
+		printf("%-20s|%-20d|%-20d\n", producto->name, producto->stock, producto->price);
 		producto++;
 	}
+	return;
 }
