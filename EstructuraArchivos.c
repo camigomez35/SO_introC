@@ -9,22 +9,17 @@ struct product {
  };
 
 
+FILE *openFile(char *mode);
 int countlines();
-
 struct product *getData(FILE *in_file, struct product *ptrProduct, int numLines);
 void printData(struct product *producto, int numLines);
 
 int main(){
-	int numLines;
 	struct product *producto =NULL;
 	FILE *in_file;
+	int numLines;
 	
-	in_file = fopen(FILE_NAME, "r");
-	
-	if(in_file==NULL){
-		printf("No se puede abrir el archivo %s\n", FILE_NAME);
-		exit(8);
-	}
+	in_file = openFile("r");
 	
 	numLines = countlines();
 	numLines = numLines/3;
@@ -38,6 +33,21 @@ int main(){
 	free(producto);
 	return(0);
 }
+
+FILE *openFile(char *mode) {
+  FILE *file;
+
+  file = fopen(FILE_NAME, mode);
+
+  // Validar si el archivo fue abierto
+  if (!file) {
+    printf("Error al abrir el archivo: %s\n", FILE_NAME);
+    exit(1);
+  }
+
+  return file;
+}
+
 
 int countlines(){
 	int ch=0;

@@ -34,7 +34,7 @@
       case 'a':
             puts("¿Cuantos productos desea agregar?");
             setbuf(stdin, NULL);
-            scanf("%d", &addProduct);
+            scanf("%d\n", &addProduct);
             addProducts(addProduct);
         break;
       case 'b':
