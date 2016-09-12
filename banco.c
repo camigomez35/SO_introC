@@ -1,6 +1,5 @@
 /*================================================================================
 Name         : banco.c
-Author       : Juangui Restrepo
 Compilation  : gcc -Wall banco.c -o banco.out
 Execution    : ./banco.out
 ================================================================================

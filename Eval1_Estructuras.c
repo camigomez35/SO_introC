@@ -3,7 +3,7 @@
 Name         : Eval_Estructuras.c
 Author       : Maria Camila Gomez Restrepo
 Version      : 1.0
-Compilation  : gcc -Wall Eval_Estructuras.c -o Eval_Estructuras.out
+Compilation  : gcc -Wall Eval1_Estructuras.c -o Eval_Estructuras.out
 Execution    : ./Eval_Estructuras.out
 ================================================================================
 */
@@ -91,9 +91,9 @@ int main(){
 /* Implementation of functions. */
 void menu(char *option) {
   puts("Menú de opciones");
-  printf("%5s %s\n"," ", "(a) Guardar datos de archivo");
-  printf("%5s %s\n"," ", "(b) Ver lista de productos");
-  printf("%5s %s\n"," ", "(q) Salir del programa");
+  printf("\t%s\n", "(a) Guardar datos de archivo");
+  printf("\t%s\n", "(b) Ver lista de productos");
+  printf("\t%s\n", "(q) Salir del programa");
   puts("Seleccione una opción:");
 
   setbuf(stdin, NULL);
@@ -153,7 +153,7 @@ void printDataAll(struct product *producto, int numLines){
 
 void printData(struct product *producto, int numLines, char search[MAX_CHARS_NAME]){
 	int i; 
-	char * pch;
+	char *pch;
   
 	printf("%-20s|%-20s|%-20s \n", "Nombre", "Cantidad", "Precio");
 	for(i =0 ; i<numLines; i++){

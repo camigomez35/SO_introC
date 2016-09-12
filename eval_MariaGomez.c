@@ -26,6 +26,7 @@
   char option = ' ';
   int addProduct;
   char search[MAX_CHARS_NAME];
+  int prueba ;
 
   do {
     menu(&option);
@@ -34,7 +35,7 @@
       case 'a':
             puts("¿Cuantos productos desea agregar?");
             setbuf(stdin, NULL);
-            scanf("%d\n", &addProduct);
+            scanf("%d", &addProduct);
             addProducts(addProduct);
         break;
       case 'b':
@@ -53,7 +54,8 @@
     }
   } while(option != 'q');
 
-
+  free(product);
+  free(stock);
   return 0;
  }
 
@@ -62,9 +64,9 @@
  */
 void menu(char *option) {
   puts("Menú de opciones");
-  printf("%5s %s\n"," ", "(a) Registrar productos");
-  printf("%5s %s\n"," ", "(b) Ver lista de productos");
-  printf("%5s %s\n"," ", "(q) Salir del programa");
+  printf("\t%s\n", "(a) Registrar productos");
+  printf("\t%s\n", "(b) Ver lista de productos");
+  printf("\t%s\n", "(q) Salir del programa");
   puts("Seleccione una opción:");
 
   setbuf(stdin, NULL);
