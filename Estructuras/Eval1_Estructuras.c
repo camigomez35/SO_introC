@@ -30,8 +30,10 @@ void menu(char *option);
 int countlines();
 FILE *openFile(char *fileName, char *mode);
 struct product *getData(FILE *in_file, struct product *ptrProduct, int numLines);
+void print(struct product *producto, int numLines);
 void printDataAll(struct product *producto, int numLines);
 void printData(struct product *producto, int numLines, char search[MAX_CHARS_NAME]);
+int existenProductos(int num_productos);
 
 /* Global variables. */
 
@@ -39,11 +41,9 @@ void printData(struct product *producto, int numLines, char search[MAX_CHARS_NAM
 /* Main function. */
 int main(){
 	struct product *producto =NULL;
-	char *search[MAX_CHARS_NAME] ;
-	int result;
 	char fileName[MAX_CHARS_NAME];
 	FILE *in_file;
-	int numLines;
+	int numLines = 0;
 	char option = ' ';
 	
 	do {
@@ -61,15 +61,7 @@ int main(){
             
         break;
       case 'b':
-      			puts("Digite una cadena de caracteres: ");
-            setbuf(stdin, NULL);
-            scanf("%s", (char *)search);
-            result = strcmp((char *)search,"all");
-            if(result==0){
-            	printDataAll(producto, numLines);
-            }else{
-            	printData(producto, numLines,  (char *)search);
-            }
+    		print(producto, numLines);
             
         break;
       case 'q':
@@ -141,9 +133,38 @@ struct product *getData(FILE *in_file, struct product *ptrProduct, int numLines)
 	return (ptrProduct-numLines);
 }
 
+int existenProductos(int num_productos) {
+    if (num_productos==0) {
+        return 1;
+    }
+    return 0;
+}
+
+void print(struct product *producto, int numLines){
+	int result;
+	char *search[MAX_CHARS_NAME];
+	if (existenProductos(numLines)==1) {
+		printf("No hay productos para mostrar.\n");
+		return;
+	}
+	
+  	puts("Digite una cadena de caracteres: ");
+    setbuf(stdin, NULL);
+    scanf("%s", (char *)search);
+    result = strcmp((char *)search,"all");
+    if(result==0){
+    	printDataAll(producto, numLines);
+    }else{
+    	printData(producto, numLines,  (char *)search);
+    }
+	
+}
+
 void printDataAll(struct product *producto, int numLines){
-	printf("%-20s|%-20s|%-20s \n", "Nombre", "Cantidad", "Precio");
 	int i;
+	
+	printf("%-20s|%-20s|%-20s \n", "Nombre", "Cantidad", "Precio");
+	
 	for(i =0 ; i<numLines; i++){
 		printf("%-20s|%-20d|%-20d\n", producto->name, producto->stock, producto->price);
 		producto++;
