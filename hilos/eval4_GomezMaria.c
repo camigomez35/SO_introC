@@ -23,7 +23,7 @@ void readMatriz(FILE *file, int matriz[MAX_PROCESOS][MAX_RECURSOS], int pym[2]);
 void readAvail(FILE *fileAvail);
 int countlines(char *FILE_NAME);
 
-//Metodo para el hilo
+//Metodo para el 
 void *hilo(void *atributo);
 
 
@@ -112,8 +112,6 @@ int main(int argc, char* argv[]){
                     {
                         avail[j] += alloc[i][j];
                     }
-
-                    break;
                 }
                 free(exec);
             }
